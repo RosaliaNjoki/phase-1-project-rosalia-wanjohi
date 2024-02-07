@@ -2,9 +2,18 @@ document.addEventListener('DOMContentLoaded', function(){
     const ApiUrl = 'https://trackapi.nutritionix.com/v2/search/instant/?query=hamburger';
     const ApiKey =  '1520077eb8d20fad210e515aaf40b538';
     const appId = '5ea05591';
+    
+    const title = document.createElement('h1');
+    title.style.alignItems="center";
+    title.textContent = "Welcome to Humberger Resturant";
+    document.getElementById("restuarant-title").appendChild(title);
+    
     const menuGrid = document.getElementById("food-menu-grid");
 
     const createMenuCard = (foodName, servingUnit, servingQuantity, photo, button, ) => {
+        // creating the header 
+       
+     
         // Creating the elements
         const gridItem = document.createElement('div');
         gridItem.className = 'menu-grid-item';
@@ -34,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
         const cardBtn = document.createElement('button');
         cardBtn.className = 'menu-card-btn';
-        cardBtn.textContent = 'order';
+        cardBtn.textContent = 'Order Now';
 
         const span = document.createElement('span');
         span.innerHTML = '&rarr;';
@@ -91,5 +100,39 @@ document.addEventListener('DOMContentLoaded', function(){
 
     }
 getMenuItems();
+
+const addForm = (form)=> {
+
+    
+    const reviewForm = document.createElement("form");
+    reviewForm.style.alignItems="center";
+    reviewForm.style.alignContent="center";
+
+    const formTitle = document.createElement('h3');
+    formTitle.ClassName = "form-title";
+    formTitle.style.alignContent= "center";
+    formTitle.textContent= "Drop Your Review";
+
+    // const reviewLabel = document.createElement("label");
+    // reviewLabel.textContent= "Customer Review";
+
+    const reviewInput = document.createElement("textarea");
+    reviewInput.style.width = "90%";
+
+
+    const submit = document.createElement("input");
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("value", "Submit");
+
+    reviewForm.appendChild(formTitle);
+    // reviewForm.appendChild(reviewLabel);
+    reviewForm.appendChild(reviewInput);
+    reviewForm.appendChild(document.createElement('br'));
+    reviewForm.appendChild(document.createElement('br'));
+    reviewForm.appendChild(submit);
+    
+    document.getElementById('review-form-container').appendChild(reviewForm);
+}
+addForm();
 });
 
