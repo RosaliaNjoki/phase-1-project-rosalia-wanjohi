@@ -1,8 +1,15 @@
 document.addEventListener('DOMContentLoaded', function(){
+    let form = document.querySelector("#review-form")
+    form.addEventListener("submit", (e)=> {
+        e.preventDefault();
+        handleReviews(e.target.reviews.value);
+        form.reset();
+
+    })
     const ApiUrl = 'https://trackapi.nutritionix.com/v2/search/instant/?query=hamburger';
     const ApiKey =  '1520077eb8d20fad210e515aaf40b538';
     const appId = '5ea05591';
-    
+    //restuarant title
     const title = document.createElement('h1');
     title.style.alignItems="center";
     title.textContent = "Welcome to Humberger Resturant";
@@ -10,8 +17,7 @@ document.addEventListener('DOMContentLoaded', function(){
     
     const menuGrid = document.getElementById("food-menu-grid");
 
-    const createMenuCard = (foodName, servingUnit, servingQuantity, photo, button, ) => {
-        // creating the header 
+    const createMenuCard = (foodName, servingUnit, servingQuantity, photo ) => {
        
      
         // Creating the elements
@@ -41,10 +47,6 @@ document.addEventListener('DOMContentLoaded', function(){
         cardText.className = 'menu-card-info';
         cardText.textContent = servingQuantity;
 
-        const cardBtn = document.createElement('button');
-        cardBtn.className = 'menu-card-btn';
-        cardBtn.textContent = 'Order Now';
-
         const span = document.createElement('span');
         span.innerHTML = '&rarr;';
 
@@ -52,8 +54,7 @@ document.addEventListener('DOMContentLoaded', function(){
         cardContent.appendChild(cardHeader);
         cardContent.appendChild(cardText);
         cardContent.appendChild(cardInfo);
-        cardContent.appendChild(cardBtn);
-
+           
         card.appendChild(cardImg);
         card.appendChild(cardContent);
 
@@ -83,10 +84,12 @@ document.addEventListener('DOMContentLoaded', function(){
                 const servingUnit =`Serving Unit: ${currentMenu["serving_unit"]}`;
                 const servingQuantity = `Serving Quantity: ${currentMenu["serving_qty"]}`;
                 const photo = currentMenu.photo.thumb;
-                const button = currentMenu[""];
+                
+             
+                
 
                 const menuCard = createMenuCard(
-                    foodName, servingUnit, servingQuantity, photo, button
+                    foodName, servingUnit, servingQuantity, photo
                 )
 
                 menuGrid.appendChild(menuCard);
@@ -101,38 +104,13 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 getMenuItems();
 
-const addForm = (form)=> {
+//append customers reviews 
+function handleReviews(reviews){
+    let p = document.createElement("p");
+    p.textContent= reviews;
+    document.querySelector("#reviews-container").appendChild(p);
 
-    
-    const reviewForm = document.createElement("form");
-    reviewForm.style.alignItems="center";
-    reviewForm.style.alignContent="center";
-
-    const formTitle = document.createElement('h3');
-    formTitle.ClassName = "form-title";
-    formTitle.style.alignContent= "center";
-    formTitle.textContent= "Drop Your Review";
-
-    // const reviewLabel = document.createElement("label");
-    // reviewLabel.textContent= "Customer Review";
-
-    const reviewInput = document.createElement("textarea");
-    reviewInput.style.width = "90%";
-
-
-    const submit = document.createElement("input");
-    submit.setAttribute("type", "submit");
-    submit.setAttribute("value", "Submit");
-
-    reviewForm.appendChild(formTitle);
-    // reviewForm.appendChild(reviewLabel);
-    reviewForm.appendChild(reviewInput);
-    reviewForm.appendChild(document.createElement('br'));
-    reviewForm.appendChild(document.createElement('br'));
-    reviewForm.appendChild(submit);
-    
-    document.getElementById('review-form-container').appendChild(reviewForm);
 }
-addForm();
+
 });
 
