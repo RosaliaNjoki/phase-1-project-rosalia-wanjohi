@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function(){
         form.reset();
 
     })
+  
+
     const ApiUrl = 'https://trackapi.nutritionix.com/v2/search/instant/?query=hamburger';
     const ApiKey =  '1520077eb8d20fad210e515aaf40b538';
     const appId = '5ea05591';
@@ -17,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
     
     const menuGrid = document.getElementById("food-menu-grid");
 
-    const createMenuCard = (foodName, servingUnit, servingQuantity, photo ) => {
+    const createMenuCard = (foodName, servingUnit, servingQuantity, photo, idTag ) => {
        
      
         // Creating the elements
@@ -44,9 +46,14 @@ document.addEventListener('DOMContentLoaded', function(){
         cardText.textContent = servingUnit;
         
         const cardInfo = document.createElement('p');
-        cardText.className = 'menu-card-info';
-        cardText.textContent = servingQuantity;
+        cardInfo.className = 'menu-card-info';
+        cardInfo.textContent = servingQuantity;
 
+        const cardId= document.createElement('p');
+        cardId.className= "menu-card-Id";
+        cardId.textContent = idTag;
+
+        
         const span = document.createElement('span');
         span.innerHTML = '&rarr;';
 
@@ -54,7 +61,10 @@ document.addEventListener('DOMContentLoaded', function(){
         cardContent.appendChild(cardHeader);
         cardContent.appendChild(cardText);
         cardContent.appendChild(cardInfo);
-           
+        cardContent.appendChild(cardId);
+        
+        
+
         card.appendChild(cardImg);
         card.appendChild(cardContent);
 
@@ -84,13 +94,14 @@ document.addEventListener('DOMContentLoaded', function(){
                 const servingUnit =`Serving Unit: ${currentMenu["serving_unit"]}`;
                 const servingQuantity = `Serving Quantity: ${currentMenu["serving_qty"]}`;
                 const photo = currentMenu.photo.thumb;
+                const idTag = `Food Id: ${currentMenu["tag_id"]}`;
                 
              
                 
 
                 const menuCard = createMenuCard(
-                    foodName, servingUnit, servingQuantity, photo
-                )
+                    foodName, servingUnit, servingQuantity, photo, idTag
+                );
 
                 menuGrid.appendChild(menuCard);
         
@@ -104,13 +115,65 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 getMenuItems();
 
+function fetchNavDetails(){
+    //making a Get request to obtain first film details
+    fetch('http://localhost:3000/food')
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+    return response.json(); 
+  })
+  .then(data => data.forEach(food => displayMenu(food))) 
+
+}
+
+
+
+ function displayMenu(food){
+    
+    let orderCard = document.createElement("li");
+    orderCard.class = "ordercard";
+    orderCard.id = "food-id";
+    orderCard.innerHTML = `
+    <div class="food-detail">
+    <h4>${food.food_name}</h4>
+    <p>Food id: ${food.tag_id}<p>
+    <p> 
+    Serving Quantity:<span class ="quantity-count"> ${food.serving_qty}</span>
+    <p>
+    </div>
+    <div class="button">
+    <button id="order">Order Now</>
+    </div>
+    <div class="form"> 
+        <form id = "review-form"> 
+            <h5 id="form-title"> Leave a Comment</h5>
+            <textarea type="text" id="reviews" placeholder="reviews"></textarea><br>
+            <input type="submit" value="Submit">
+        </form> 
+        <div id="reviews-container">
+            <p>${food.reviews}</p>
+         </div> 
+    </div> 
+    `
+   
+    document.querySelector("#order-food").appendChild(orderCard);  
+}
+
+
 //append customers reviews 
 function handleReviews(reviews){
     let p = document.createElement("p");
     p.textContent= reviews;
     document.querySelector("#reviews-container").appendChild(p);
-
 }
+   
+fetchNavDetails();
+
+
+
+
 
 });
 
