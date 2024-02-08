@@ -157,6 +157,12 @@ function fetchNavDetails(){
          </div> 
     </div> 
     `
+    orderCard.querySelector('#order').addEventListener("click", ()=> {
+        food.serving_qty-=1;
+    orderCard.querySelector("span").textContent = food.serving_qty;
+        updateServingQuantity(id);
+        alert('your order will be served in 5 minutes');
+         });
    
     document.querySelector("#order-food").appendChild(orderCard);  
 }
@@ -172,8 +178,21 @@ function handleReviews(reviews){
 fetchNavDetails();
 
 
+function updateServingQuantity(id){
+    fetch(`http://localhost:3000/food/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(dataObj)
+    })
+    .then(res=>res.json())
+    .then(data => console.log(data))
 
 
+}
 
 });
 
+
+            
