@@ -39,15 +39,6 @@ body {
     padding: 10px;
     align-content: center;
 }
-#review-form-container{
-  
-  max-width: 500px;
-  margin: auto;
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
 
 #review-form {
   display: grid;
@@ -57,7 +48,7 @@ body {
 
 
 textarea {
-  width: 100%;
+  width: 50%;
   padding: 10px;
   box-sizing: border-box;
   border: 1px solid #ccc;
