@@ -128,9 +128,13 @@ function fetchNavDetails(){
 
 fetchNavDetails();
 
+    const subtitle = document.createElement('h3');
+    subtitle.style.alignItems="center";
+    subtitle.textContent = "Place Your Order";
+    document.getElementById("order-title").appendChild(subtitle);
+
  function displayMenu(food){
-    
-    let orderCard = document.createElement("li");
+   let orderCard = document.createElement("li");
     orderCard.class = "ordercard";
     orderCard.id = "food-id";
     orderCard.innerHTML = `
@@ -175,8 +179,6 @@ function updateServingQuantity(id){
     })
     .then(res=>res.json())
     .then(data => console.log(data))
-
-
 }
 
 });
