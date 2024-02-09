@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function(){
     //restuarant title
     const title = document.createElement('h1');
     title.style.alignItems="center";
-    title.textContent = "Welcome to Humberger Resturant";
+    title.textContent = "Welcome to Humburger Resturant";
     document.getElementById("restuarant-title").appendChild(title);
     
     const menuGrid = document.getElementById("food-menu-grid");
