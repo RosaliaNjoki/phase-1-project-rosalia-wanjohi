@@ -1,11 +1,14 @@
-document.addEventListener('DOMContentLoaded', function(){
-    let form = document.querySelector("#review-form")
-    form.addEventListener("submit", (e)=> {
-        e.preventDefault();
-        handleReviews(e.target.reviews.value);
-        form.reset();
+document.addEventListener('DOMContentLoaded', ()=>{
+    
+    document.querySelector("#review-form").addEventListener("submit", handleSubmit);
 
-    })
+    function handleSubmit(e){
+        e.preventDefault()
+            let commentsObj ={
+                reviews: e.target.reviews.value
+            }
+            postReview(commentsObj);
+        }
     
     const ApiUrl = 'https://trackapi.nutritionix.com/v2/search/instant/?query=hamburger';
     const ApiKey =  '1520077eb8d20fad210e515aaf40b538';
@@ -162,12 +165,7 @@ fetchNavDetails();
 }
 
 displayMenu();
-//append customers reviews 
-function handleReviews(reviews){
-    let p = document.createElement("p");
-    p.textContent= reviews;
-    document.querySelector("#reviews-container").appendChild(p);
-}
+
 
 function updateServingQuantity(id){
     fetch(`http://localhost:3000/food/${id}`, {
@@ -180,6 +178,20 @@ function updateServingQuantity(id){
     .then(res=>res.json())
     .then(data => console.log(data))
 }
+
+function postReview(commentsObj){
+  
+    fetch('http://localhost:3000/comments', {
+    method: 'POST', 
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body:JSON.stringify(commentsObj)
+
+    })
+    .then(res => res.json())
+    .then(comments=> console.log(comments))
+ }
 
 });
 
