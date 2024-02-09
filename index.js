@@ -153,7 +153,7 @@ fetchNavDetails();
     </div>
 
     `
-
+// integrating patch in serving quantity by reducing the value as more orders are placed
     orderCard.querySelector('#order').addEventListener("click", ()=> {
         food.serving_qty-=1;
     orderCard.querySelector("span").textContent = food.serving_qty;
@@ -166,7 +166,7 @@ fetchNavDetails();
 
 displayMenu();
 
-
+//patch method forserving quantity  
 function updateServingQuantity(id){
     fetch(`http://localhost:3000/food/${id}`, {
         method: 'PATCH',
@@ -178,7 +178,7 @@ function updateServingQuantity(id){
     .then(res=>res.json())
     .then(data => console.log(data))
 }
-
+//reviews post method 
 function postReview(commentsObj){
   
     fetch('http://localhost:3000/comments', {
