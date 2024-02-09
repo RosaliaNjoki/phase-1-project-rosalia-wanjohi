@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', function(){
         form.reset();
 
     })
-  
-
+    
     const ApiUrl = 'https://trackapi.nutritionix.com/v2/search/instant/?query=hamburger';
     const ApiKey =  '1520077eb8d20fad210e515aaf40b538';
     const appId = '5ea05591';
@@ -20,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function(){
     const menuGrid = document.getElementById("food-menu-grid");
 
     const createMenuCard = (foodName, servingUnit, servingQuantity, photo, idTag ) => {
-       
      
         // Creating the elements
         const gridItem = document.createElement('div');
@@ -128,7 +126,7 @@ function fetchNavDetails(){
 
 }
 
-
+fetchNavDetails();
 
  function displayMenu(food){
     
@@ -146,37 +144,26 @@ function fetchNavDetails(){
     <div class="button">
     <button id="order">Order Now</>
     </div>
-    <div class="form"> 
-        <form id = "review-form"> 
-            <h5 id="form-title"> Leave a Comment</h5>
-            <textarea type="text" id="reviews" placeholder="reviews"></textarea><br>
-            <input type="submit" value="Submit">
-        </form> 
-        <div id="reviews-container">
-            <p>${food.reviews}</p>
-         </div> 
-    </div> 
+
     `
+
     orderCard.querySelector('#order').addEventListener("click", ()=> {
         food.serving_qty-=1;
     orderCard.querySelector("span").textContent = food.serving_qty;
         updateServingQuantity(id);
         alert('your order will be served in 5 minutes');
          });
-   
+    
     document.querySelector("#order-food").appendChild(orderCard);  
 }
 
-
+displayMenu();
 //append customers reviews 
 function handleReviews(reviews){
     let p = document.createElement("p");
     p.textContent= reviews;
     document.querySelector("#reviews-container").appendChild(p);
 }
-   
-fetchNavDetails();
-
 
 function updateServingQuantity(id){
     fetch(`http://localhost:3000/food/${id}`, {
@@ -194,5 +181,3 @@ function updateServingQuantity(id){
 
 });
 
-
-            
