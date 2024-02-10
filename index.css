@@ -80,3 +80,8 @@ input[type="submit"]:hover {
 background-color: #d11010;
 width: 50%;
 }
+
+.button-sold-out {
+  background-color: brown;
+  color: white;
+}
