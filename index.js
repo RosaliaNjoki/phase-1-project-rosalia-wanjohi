@@ -159,6 +159,7 @@ fetchOrderDetails();
 // integrating patch in serving quantity by reducing the value as more orders are placed
     orderCard.querySelector('#order').addEventListener("click", ()=> {
         food.serving_qty-=1;
+        servingQty= food.serving_qty;
         if (food.serving_qty ===0){
                 const button = document.getElementById("order")
                 button.className = "button-sold-out";
@@ -166,7 +167,7 @@ fetchOrderDetails();
                 button.setAttribute("disabled", "");
         }
     orderCard.querySelector("span").textContent = food.serving_qty;
-        updateServingQuantity(foodObj);
+        updateServingQuantity(food.id);
         alert('your order will be served in 5 minutes');
         
          });
@@ -177,14 +178,15 @@ fetchOrderDetails();
 
 
 //patch method forserving quantity  
-function updateServingQuantity(foodObj){
+function updateServingQuantity(id){
+   
   
- fetch(`http://localhost:3000/food/${foodObj}`, {
+ fetch(`http://localhost:3000/food/${id}`, {
     method: 'PATCH',
      headers: {
             'Content-Type': 'application/json'
         },
-        body:JSON.stringify({serving_qty: servingQty})
+        body:JSON.stringify({'serving_qty': servingQty})
      })
     
  }
